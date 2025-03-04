@@ -76,5 +76,6 @@ app.get("/student-performance/:studentId", async (req, res) => {
 });
 
 // ✅ Use PORT
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT; // Remove || 5000
+
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
