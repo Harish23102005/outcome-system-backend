@@ -79,3 +79,4 @@ app.get("/student-performance/:studentId", async (req, res) => {
 const PORT = process.env.PORT; // Remove || 5000
 
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+fetch(`${backendUrl}/student-performance/${studentId}`);
