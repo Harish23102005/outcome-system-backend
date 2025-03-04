@@ -60,6 +60,17 @@ app.post("/add-student", async (req, res) => {
   }
 });
 
+// ✅ Fetch All Students (GET /students)
+app.get("/students", async (req, res) => {
+  try {
+    const students = await Student.find(); // Fetch all students
+    res.json(students);
+  } catch (error) {
+    console.error("❌ Error fetching students:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 // ✅ Use Process PORT or Default to 5000
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
