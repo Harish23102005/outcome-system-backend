@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const bodyParser = require("body-parser");
 const asyncHandler = require("express-async-handler");
 const Joi = require("joi");
 
@@ -17,8 +16,8 @@ app.use(
   })
 );
 
-// ✅ Middleware
-app.use(bodyParser.json());
+// ✅ Middleware (Replaced bodyParser with express.json())
+app.use(express.json());
 
 // ✅ MongoDB Connection
 const mongoURI = process.env.MONGO_URI;
@@ -49,7 +48,7 @@ const Student = mongoose.model("Student", StudentSchema);
 
 // ✅ Validation Schema using Joi
 const studentSchema = Joi.object({
-  studentId: Joi.string().required(),
+  studentId: Joi.string().required(), // Ensure studentId is a string
   name: Joi.string().required(),
   course: Joi.string().required(),
   marks: Joi.number().required(),
@@ -60,8 +59,9 @@ const studentSchema = Joi.object({
 app.post(
   "/add-student",
   asyncHandler(async (req, res) => {
-    console.log("📥 Incoming Request Data:", req.body); // ✅ Log request data
+    console.log("📥 Received Request Body:", req.body); // ✅ Log request data
 
+    // Validate input data
     const { error } = studentSchema.validate(req.body);
     if (error) {
       console.error("❌ Validation Error:", error.details[0].message);
@@ -69,6 +69,7 @@ app.post(
     }
 
     const { studentId, name, course, marks, totalMarks } = req.body;
+
     let student = await Student.findOne({ studentId });
 
     if (!student) {
