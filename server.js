@@ -9,7 +9,7 @@ const app = express();
 // ✅ Allow CORS only from your frontend
 app.use(
   cors({
-    origin: ["https://student-performance-tracker.netlify.app/"], // 🔹 Change this to your actual Netlify URL
+    origin: ["https://student-performance-tracker.netlify.app"], // 🔹 Change this to your actual Netlify URL
     methods: "GET, POST",
     allowedHeaders: "Content-Type",
   })
