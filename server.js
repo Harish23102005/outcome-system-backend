@@ -6,7 +6,16 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
-app.use(cors());
+// ✅ Allow CORS only from your frontend
+app.use(
+  cors({
+    origin: ["https://your-frontend-site.netlify.app"], // 🔹 Change this to your actual Netlify URL
+    methods: "GET, POST",
+    allowedHeaders: "Content-Type",
+  })
+);
+
+// ✅ Middleware
 app.use(bodyParser.json());
 
 const mongoURI = process.env.MONGO_URI;
@@ -77,10 +86,10 @@ app.get("/student-performance/:studentId", async (req, res) => {
 
 // ✅ Use PORT
 const PORT = process.env.PORT || 5000;
-// Remove || 5000
 
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
 
+// ✅ Default Route
 app.get("/", (req, res) => {
   res.send("Welcome to the Student Performance Tracker API!");
 });
