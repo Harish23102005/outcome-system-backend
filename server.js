@@ -11,11 +11,8 @@ const app = express();
 // ✅ Allow CORS (Netlify + Localhost for testing)
 app.use(
   cors({
-    origin: [
-      "https://student-performance-tracker.netlify.app",
-      "http://localhost:3000",
-    ],
-    methods: ["GET", "POST"],
+    origin: "*", // 🔹 Temporarily allow all origins (for testing)
+    methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type"],
   })
 );
