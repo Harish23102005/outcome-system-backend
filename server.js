@@ -27,11 +27,11 @@ app.use(bodyParser.json());
 const mongoURI = process.env.MONGO_URI;
 
 mongoose
-  .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(mongoURI)
   .then(() => console.log("✅ MongoDB connected successfully!"))
   .catch((err) => {
     console.error("❌ MongoDB connection error:", err);
-    process.exit(1); // Exit process if DB connection fails
+    process.exit(1);
   });
 
 // ✅ Student Model with Indexing
