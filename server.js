@@ -60,9 +60,11 @@ const studentSchema = Joi.object({
 app.post(
   "/add-student",
   asyncHandler(async (req, res) => {
-    // Validate request data
+    console.log("📥 Incoming Request Data:", req.body); // ✅ Log request data
+
     const { error } = studentSchema.validate(req.body);
     if (error) {
+      console.error("❌ Validation Error:", error.details[0].message);
       return res.status(400).json({ error: error.details[0].message });
     }
 
@@ -76,6 +78,7 @@ app.post(
     student.tests.push({ marks, totalMarks });
     await student.save();
 
+    console.log("✅ Student data saved successfully!");
     res.json({ message: "✅ Student data saved successfully!" });
   })
 );
